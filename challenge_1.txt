@@ -1,0 +1,47 @@
+#Challenge 1
+
+#create network bridge
+docker network create tripinsightnetwork
+
+#pull a sql server image
+docker pull mcr.microsoft.com/mssql/server:2017-latest
+
+#run the instance of sql server image
+docker run --network tripinsightnetwork -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Password@123!" -p 1433:1433 --name sql1 -h sqladmin -d mcr.microsoft.com/mssql/server:2017-latest
+
+#login into sql server container
+docker exec -it sql1 "bash"
+
+#connect to sqlserver
+opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Password@123!"
+
+#create database
+create database mydrivingDB
+go
+
+#create login user
+create login sqladmin with password="Password@123!"
+
+#add user role
+alter server role sysadmin
+add member sqladmin
+go
+
+#ACR login
+az login
+az acr login <repoName>
+
+#run data load
+docker run --network tripinsightnetwork -e SQLFQDN=sql1 -e SQLUSER=sqladmin -e SQLPASS=Password@123! -e SQLDB=mydrivingDB registrypby9755.azurecr.io/dataload:1.0
+
+#make changes in docker file 3
+ASPNETCORE_ENVIRONMENT="Local" 
+SQL_SERVER="sql1" 
+
+#build poi image (inside src/poi)
+docker build -f /c/Users/pawan/Documents/Pawan/container_openhack/repo/containers_artifacts/dockerfiles/Dockerfile_3 -t "tripinsights/poi:1.0" .
+
+#run poi instance
+docker run --network tripinsightnetwork -p 8080:80 --name poi -d tripinsights/poi:1.0
+
+
