@@ -18,7 +18,7 @@ spec:
       - name: ti-tripviewer
         image: registrypby9755.azurecr.io/tripinsights/tripviewer:1.1
         ports:
-        - containerPort: 8080
+        - containerPort: 80
           protocol: TCP
         env:
         - name: TRIPS_API_ENDPOINT
@@ -35,6 +35,5 @@ spec:
     app: ti-tripviewer
   type: LoadBalancer  
   ports:
-  - port: 80
-    targetPort: 8080
- 
+  - port: 8080
+    targetPort: 80
