@@ -21,11 +21,20 @@ spec:
         - containerPort: 80
         env:
         - name: SQL_USER
-          value: sqladminpBy9755
+          valueFrom:
+                secretKeyRef:
+                  key: sql-user
+                  name: sql-user-value
         - name: SQL_PASSWORD
-          value: mJ5bz2Mb8
+          valueFrom:
+                secretKeyRef:
+                  key: sql-password
+                  name: sql-password-value
         - name: SQL_SERVER
-          value: sqlserverpby9755.database.windows.net
+          valueFrom:
+                secretKeyRef:
+                  key: sql-server
+                  name: sql-server-value
 ---
 apiVersion: v1
 kind: Service
