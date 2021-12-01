@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripinsights-userprofile
+  labels:
+    app: ti-userprofile
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ti-userprofile
+  template:
+    metadata:
+      labels:
+        app: ti-userprofile
+    spec:
+      containers:
+      - name: ti-userprofile
+        image: registrypby9755.azurecr.io/tripinsights/userprofile:1.0
+        ports:
+        - containerPort: 80
+        env:
+          - name: SQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: sql-user
+                key: sql-user-value
+          - name: SQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: sql-password
+                key: sql-password-value
+
+          - name: SQL_SERVER
+            valueFrom:
+              secretKeyRef:
+                name: sql-server
+                key: sql-server-value
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ti-userprofile
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9911
+      targetPort: 80
+  selector:
+    app: ti-userprofile
+
