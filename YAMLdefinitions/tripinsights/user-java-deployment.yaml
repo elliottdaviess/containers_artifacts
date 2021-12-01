@@ -4,6 +4,7 @@ metadata:
   name: tripinsights-userjava
   labels:
     app: ti-userjava
+  namespace: api
 spec:
   replicas: 3
   selector:

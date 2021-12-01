@@ -4,6 +4,7 @@ metadata:
   name: tripinsights-poi
   labels:
     app: ti-poi
+  namespace: api
 spec:
   replicas: 3
   selector:

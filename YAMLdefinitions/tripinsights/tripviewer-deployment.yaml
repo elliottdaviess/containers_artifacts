@@ -4,6 +4,7 @@ metadata:
   name: tripinsights-tripviewer
   labels:
     app: ti-tripviewer
+  namespace: web
 spec:
   replicas: 3
   selector:

@@ -4,6 +4,7 @@ metadata:
   name: tripinsights-trips
   labels:
     app: ti-trips
+  namespace: api
 spec:
   replicas: 3
   selector:

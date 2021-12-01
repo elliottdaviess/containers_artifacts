@@ -4,6 +4,7 @@ metadata:
   name: tripinsights-userprofile
   labels:
     app: ti-userprofile
+  namespace: api
 spec:
   replicas: 3
   selector:
