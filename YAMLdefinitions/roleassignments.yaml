@@ -1,0 +1,55 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-edit-web
+  namespace: web
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: edit
+subjects:
+- kind: Group
+  namespace: web
+  name: 0d173e69-865e-42a2-b2dc-e769109cc868
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: api-view-web
+  namespace: web
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: view
+subjects:
+- kind: Group
+  namespace: web
+  name: cea2b7ca-1d14-43d6-bb1e-b21040ea1256
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: api-edit-api
+  namespace: api
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: edit
+subjects:
+- kind: Group
+  namespace: api
+  name: cea2b7ca-1d14-43d6-bb1e-b21040ea1256
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-view-api
+  namespace: api
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: view
+subjects:
+- kind: Group
+  namespace: api
+  name: 0d173e69-865e-42a2-b2dc-e769109cc868
