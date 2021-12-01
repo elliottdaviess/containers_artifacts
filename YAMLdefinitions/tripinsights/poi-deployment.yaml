@@ -19,3 +19,22 @@ spec:
         image: registrypby9755.azurecr.io/tripinsights/poi:1.0
         ports:
         - containerPort: 80
+        env:
+        - name: SQL_USER
+          value: sqladminpBy9755
+        - name: SQL_PASSWORD
+          value: mJ5bz2Mb8
+        - name: SQL_SERVER
+          value: sqlserverpby9755.database.windows.net
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ti-poi
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: ti-poi
+

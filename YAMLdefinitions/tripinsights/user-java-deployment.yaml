@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripinsights-poi
+  labels:
+    app: ti-poi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ti-poi
+  template:
+    metadata:
+      labels:
+        app: ti-poi
+    spec:
+      containers:
+      - name: ti-poi
+        image: registrypby9755.azurecr.io/tripinsights/poi:1.0
+        ports:
+        - containerPort: 80
+
