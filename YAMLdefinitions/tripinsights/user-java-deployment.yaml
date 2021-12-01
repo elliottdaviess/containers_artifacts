@@ -1,22 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tripinsights-poi
+  name: tripinsights-userjava
   labels:
-    app: ti-poi
+    app: ti-userjava
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: ti-poi
+      app: ti-userjava
   template:
     metadata:
       labels:
-        app: ti-poi
+        app: ti-userjava
     spec:
       containers:
-      - name: ti-poi
-        image: registrypby9755.azurecr.io/tripinsights/poi:1.0
+      - name: ti-userjava
+        image: registrypby9755.azurecr.io/tripinsights/user-java:1.0
         ports:
         - containerPort: 80
+        env:
+        - name: SQL_USER
+          valueFrom: 
+              secretKeyRef:
+                key: sql-user
+                name: sql-user-value
+        - name: SQL_PASSWORD
+          valueFrom: 
+              secretKeyRef:
+                key: sql-password
+                name: sql-password-value
+        - name: SQL_SERVER
+          valueFrom: 
+              secretKeyRef:
+                key: sql-server
+                name: sql-server-value
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ti-userjava
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: ti-userjava
 
