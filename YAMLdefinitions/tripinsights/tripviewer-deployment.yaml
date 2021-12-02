@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripinsights-tripviewer
+  namespace: web
   labels:
     app: ti-tripviewer
-  namespace: web
 spec:
   replicas: 3
   selector:
@@ -23,14 +23,15 @@ spec:
           protocol: TCP
         env:
         - name: TRIPS_API_ENDPOINT
-          value: "http://tripinsights-trips"
+          value: "http://ti-trips.api.svc.cluster.local:9911"
         - name: USERPROFILE_API_ENDPOINT
-          value: "http://tripinsights-userprofile:9911"
+          value: "http://ti-userprofile.api.svc.cluster.local:9911"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ti-tripviewer
+  namespace: web
 spec:
   selector:
     app: ti-tripviewer

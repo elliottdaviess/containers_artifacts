@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripinsights-trips
+  namespace: api
   labels:
     app: ti-trips
-  namespace: api
 spec:
   replicas: 3
   selector:
@@ -21,30 +21,29 @@ spec:
         ports:
         - containerPort: 80
         env:
-          - name: SQL_USER
-            valueFrom:
-              secretKeyRef:
-                name: sql-user
-                key: sql-user-value
-          - name: SQL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: sql-password
-                key: sql-password-value
-
-          - name: SQL_SERVER
-            valueFrom:
-              secretKeyRef:
-                name: sql-server
-                key: sql-server-value
-
+        - name: SQL_USER
+          valueFrom:
+                secretKeyRef:
+                  key: sql-user-value
+                  name: sql
+        - name: SQL_PASSWORD
+          valueFrom:
+                secretKeyRef:
+                  key: sql-password-value
+                  name: sql
+        - name: SQL_SERVER
+          valueFrom:
+                secretKeyRef:
+                  key: sql-server-value
+                  name: sql
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ti-trips
+  namespace: api
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http
       protocol: TCP

@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tripinsights-poi
+  namespace: api
   labels:
     app: ti-poi
-  namespace: api
 spec:
   replicas: 3
   selector:
@@ -24,27 +24,29 @@ spec:
         - name: SQL_USER
           valueFrom:
                 secretKeyRef:
-                  key: sql-user
-                  name: sql-user-value
+                  key: sql-user-value
+                  name: sql
         - name: SQL_PASSWORD
           valueFrom:
                 secretKeyRef:
-                  key: sql-password
-                  name: sql-password-value
+                  key: sql-password-value
+                  name: sql
         - name: SQL_SERVER
           valueFrom:
                 secretKeyRef:
-                  key: sql-server
-                  name: sql-server-value
+                  key: sql-server-value
+                  name: sql
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ti-poi
+  namespace: api
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-  - port: 80
+  - port: 8080
+    targetPort: 80
   selector:
     app: ti-poi
 
