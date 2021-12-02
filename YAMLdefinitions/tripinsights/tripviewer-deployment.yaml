@@ -23,9 +23,9 @@ spec:
           protocol: TCP
         env:
         - name: TRIPS_API_ENDPOINT
-          value: "http://ti-trips.api.svc.cluster.local:9911"
+          value: "http://ti-trips.api.svc.cluster.local"
         - name: USERPROFILE_API_ENDPOINT
-          value: "http://ti-userprofile.api.svc.cluster.local:9911"
+          value: "http://ti-userprofile.api.svc.cluster.local"
 ---
 apiVersion: v1
 kind: Service
@@ -35,36 +35,10 @@ metadata:
 spec:
   selector:
     app: ti-tripviewer
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http
       protocol: TCP
       port: 80
       targetPort: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ti-tripviewer
-  namespace: api
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-spec:
-  rules:
-    - host: ti-tripviewer.0957189954974d819320.ukwest.aksapp.io
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ti-tripviewer
-                port:
-                  number: 80
-          - path: /api/user/healthcheck
-            pathType: Prefix
-            backend:
-              service:
-                name: ti-userprofile
-                port:
-                  number: 80
+

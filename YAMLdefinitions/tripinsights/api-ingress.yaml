@@ -1,0 +1,137 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ti-tripviewer
+  namespace: api
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/user
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userprofile
+                port:
+                  number: 80
+          - path: /api/docs/user
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userprofile
+                port:
+                  number: 80
+          - path: /api/user-java
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userjava
+                port:
+                  number: 80
+          - path: /api/documentation/user-java
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userjava
+                port:
+                  number: 80
+          - path: /api/swagger-resources
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userjava
+                port:
+                  number: 80
+          - path: /api/api-docs
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userjava
+                port:
+                  number: 80
+          - path: /api/user-java/healthcheck
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userjava
+                port:
+                  number: 80
+          - path: /api/docs/user-java
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userjava
+                port:
+                  number: 80
+          - path: /api/poi
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-poi
+                port:
+                  number: 80
+          - path: /api/poi/trip
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-poi
+                port:
+                  number: 80
+          - path: /api/poi/healthcheck
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-poi
+                port:
+                  number: 80
+          - path: /api/docs/poi
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-poi
+                port:
+                  number: 80
+          - path: /swagger/docs/poi
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-poi
+                port:
+                  number: 80
+          - path: /api/trips
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-trips
+                port:
+                  number: 80
+          - path: /api/trips/user
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-trips
+                port:
+                  number: 80
+          - path: /api/trips/*/trippoints
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-trips
+                port:
+                  number: 80
+          - path: /api/trips/healthcheck
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-trips
+                port:
+                  number: 80
+          - path: /api/docs/trips
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-trips
+                port:
+                  number: 80
