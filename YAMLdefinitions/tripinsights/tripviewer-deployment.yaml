@@ -35,7 +35,36 @@ metadata:
 spec:
   selector:
     app: ti-tripviewer
-  type: LoadBalancer  
+  type: LoadBalancer
   ports:
-  - port: 8080
-    targetPort: 80
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ti-tripviewer
+  namespace: api
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+    - host: ti-tripviewer.0957189954974d819320.ukwest.aksapp.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-tripviewer
+                port:
+                  number: 80
+          - path: /api/user/healthcheck
+            pathType: Prefix
+            backend:
+              service:
+                name: ti-userprofile
+                port:
+                  number: 80
