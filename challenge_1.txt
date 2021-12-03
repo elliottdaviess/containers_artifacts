@@ -19,7 +19,7 @@ opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Password@123!"
 create database mydrivingDB
 go
 
-#create login user
+#create login user #select * from [dbo].[Trips]
 create login sqladmin with password="Password@123!"
 
 #add user role
@@ -45,3 +45,14 @@ docker build -f /c/Users/pawan/Documents/Pawan/container_openhack/repo/container
 docker run --network tripinsightnetwork -p 8080:80 --name poi -d tripinsights/poi:1.0
 
 
+# trips doc
+http://localhost:8083/api/docs/trips
+
+#user-java
+http://localhost:8082/api/documentation/user-java/swagger-ui.html
+
+#user-profile
+http://localhost:8081/api/docs/user/
+
+#poi
+http://localhost:8084/api/docs/poi/index.html

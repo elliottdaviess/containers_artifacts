@@ -18,10 +18,10 @@ ARG IMAGE_SOURCE_REVISION
 ENV PORT="80" \
     CONFIG_FILES_PATH="/secrets" \
     SQL_USER="sqladmin" \
-    SQL_PASSWORD="changeme" \
-    SQL_SERVER="changeme.database.windows.net" \
+    SQL_PASSWORD="Password@123!" \
+    SQL_SERVER="sql1" \
     SQL_DBNAME="mydrivingDB" \
-    OPENAPI_DOCS_URI="http://localhost" \
+    OPENAPI_DOCS_URI="http://localhost:8083" \
     DEBUG_LOGGING="false"
 
 # Metadata as defined in OCI image spec annotations - https://github.com/opencontainers/image-spec/blob/master/annotations.md

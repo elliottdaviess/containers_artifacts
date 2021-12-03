@@ -5,11 +5,11 @@ metadata:
   namespace: web
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
+  kind: ClusterRole
   name: edit
 subjects:
 - kind: Group
-  namespace: web
+  apiGroup : rbac.authorization.k8s.io
   name: 0d173e69-865e-42a2-b2dc-e769109cc868
 ---
 kind: RoleBinding
@@ -19,11 +19,11 @@ metadata:
   namespace: web
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
+  kind: ClusterRole
   name: view
 subjects:
 - kind: Group
-  namespace: web
+  apiGroup : rbac.authorization.k8s.io
   name: cea2b7ca-1d14-43d6-bb1e-b21040ea1256
 ---
 kind: RoleBinding
@@ -33,11 +33,11 @@ metadata:
   namespace: api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
+  kind: ClusterRole
   name: edit
 subjects:
 - kind: Group
-  namespace: api
+  apiGroup : rbac.authorization.k8s.io
   name: cea2b7ca-1d14-43d6-bb1e-b21040ea1256
 ---
 kind: RoleBinding
@@ -47,9 +47,9 @@ metadata:
   namespace: api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: Role
+  kind: ClusterRole
   name: view
 subjects:
 - kind: Group
-  namespace: api
+  apiGroup : rbac.authorization.k8s.io
   name: 0d173e69-865e-42a2-b2dc-e769109cc868

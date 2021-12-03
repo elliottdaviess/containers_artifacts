@@ -14,6 +14,7 @@ spec:
     metadata:
       labels:
         app: ti-poi
+        aadpodidbinding: take2podidentity
     spec:
       containers:
       - name: ti-poi
@@ -21,21 +22,19 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: SQL_USER
-          valueFrom:
-                secretKeyRef:
-                  key: sql-user-value
-                  name: sql
-        - name: SQL_PASSWORD
-          valueFrom:
-                secretKeyRef:
-                  key: sql-password-value
-                  name: sql
-        - name: SQL_SERVER
-          valueFrom:
-                secretKeyRef:
-                  key: sql-server-value
-                  name: sql
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Production"
+        volumeMounts:
+          - name: secrets-store-inline
+            mountPath: "/secrets"
+            readOnly: true
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: azure-team2keyvault-e14d775c-4ac5-4d43-b01e-bcfc060572a2
 ---
 apiVersion: v1
 kind: Service
